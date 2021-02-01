@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :tweets, only: :index
 end
+
+# 解説 
+# tweetsというパスにアクセスすると、tweetsコントローラーのindexアクションを実行。
