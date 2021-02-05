@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :tweets, only: :index
+  resources :tweets, only: [:index, :new, :create]
 end
 
-# 解説 
-# tweetsというパスにアクセスすると、tweetsコントローラーのindexアクションを実行。
+# tweets/newでtweetsコントローラーのnewアクションへ振り分ける。
