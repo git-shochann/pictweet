@@ -2,6 +2,9 @@ class TweetsController < ApplicationController
 
   # before_action :set_tweets, only: [:edit, :show] 今回は実装なし
 
+  before_action :move_to_index, except: [:index, :show]
+  # == new,create,edit,update,destoryは全てindex.html.erbにリダイレクトされる。
+
   def index
     @tweets = Tweet.all
     # => 全体ページのDBから全ての値を表示するためのアクション。
@@ -56,6 +59,14 @@ class TweetsController < ApplicationController
   #   @tweet = Tweet.find(params[:id])
   # end
   # # 今回は実装しないけど、記述が同じものに関しては、before_actionでまとめる。
+
+  def move_to_index
+    redirect_to action: :index unless user_signed_in?
+  end
+
+  # redirect_toは同一コントローラーの指定したアクションにリダイレクト可。
+
+  # このように書くと先にuser_signed_in?で判定をして、その返り値がfalseだった場合に手前の式を実行する。ユーザーがログインしていない時にはindexアクションを実行するロジック。
 
 end
 
