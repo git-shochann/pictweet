@@ -5,6 +5,9 @@
           <span><i class="fas fa-arrow-down"></i></span>
           <ul class="more_list">
             <li>
+              <%= link_to '詳細', "/tweets/#{tweet.id}", method: :get %>
+            </li>
+            <li>
               <%= link_to '編集', "/tweets/#{tweet.id}/edit", method: :get %>
             <li>
               <%= link_to '削除', "/tweets/#{tweet.id}", method: :delete %>
@@ -21,3 +24,4 @@
 
 <%# 8行目 tweet.idとできるのはtweetコントローラーにて記載してindexアクションのallメソッドで取得した@tweetsをeachメソッドで1つずつ処理している為tweet.idでそのhtmlで構成した画像が取得出来る %>
 <%# ここでコントローラーのfind(params[:id]として取得するところで個々の削除したいidを取得する) %>
+<%# link_toで行き先を指定するとき、ルーティングを設定してから、そこのコントローラーで動かしたいパスを明らかにするために、""" rails routes """で行き先を確認する。 %>

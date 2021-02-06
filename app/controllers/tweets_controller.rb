@@ -1,5 +1,7 @@
 class TweetsController < ApplicationController
 
+  # before_action :set_tweets, only: [:edit, :show] 今回は実装なし
+
   def index
     @tweets = Tweet.all
     # => 全体ページのDBから全ての値を表示するためのアクション。
@@ -29,6 +31,13 @@ class TweetsController < ApplicationController
   # ここでのfind(params[:id])はedit.html.erbのパラメーター
   # データをDBに保存する為、privateメソッドでストロングパラメーターを設定する
 
+  def show
+    @tweet = Tweet.find(params[:id])
+    # => 詳細ページのビューへ。
+  end
+
+  # ここでのfind(params[:id])はindex.html.erbで作成したlink_toのパラメーター
+
   def destroy
     tweet = Tweet.find(params[:id])
     tweet.destroy
@@ -37,11 +46,16 @@ class TweetsController < ApplicationController
 
 
   private
-  # 他のクラスからアクセス出来ないうようにする。
+  # 他のクラスからアクセス出来ないようにする。
 
   def tweets_params
     params.require(:tweet).permit(:name,:text,:image)
   end
+
+  # def set_tweets
+  #   @tweet = Tweet.find(params[:id])
+  # end
+  # # 今回は実装しないけど、記述が同じものに関しては、before_actionでまとめる。
 
 end
 
