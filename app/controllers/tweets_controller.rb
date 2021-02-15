@@ -52,7 +52,7 @@ class TweetsController < ApplicationController
   # 他のクラスからアクセス出来ないようにする。
 
   def tweets_params
-    params.require(:tweet).permit(:name,:text,:image)
+    params.require(:tweet).permit(:text,:image).merge(user_id: current_user.id)
   end
 
   # def set_tweets

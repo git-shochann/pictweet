@@ -7,16 +7,19 @@
             <li>
               <%= link_to '詳細', "/tweets/#{tweet.id}", method: :get %>
             </li>
+          <% if user_signed_in? && current_user.id == tweet.user_id %>
             <li>
               <%= link_to '編集', "/tweets/#{tweet.id}/edit", method: :get %>
             <li>
               <%= link_to '削除', "/tweets/#{tweet.id}", method: :delete %>
             </li>
+          <% end %>
           </ul>
         </div>
       <%= simple_format(tweet.text) %>
       <span class="name">
-        <%= tweet.name %>
+        <a href="/users/<%= tweet.user.id%>">
+        <span>投稿者</span><%= tweet.user.nickname %>
       </span>
     </div>
   <% end %>
@@ -25,3 +28,8 @@
 <%# 8行目 tweet.idとできるのはtweetコントローラーにて記載してindexアクションのallメソッドで取得した@tweetsをeachメソッドで1つずつ処理している為tweet.idでそのhtmlで構成した画像が取得出来る %>
 <%# ここでコントローラーのfind(params[:id]として取得するところで個々の削除したいidを取得する) %>
 <%# link_toで行き先を指定するとき、ルーティングを設定してから、そこのコントローラーで動かしたいパスを明らかにするために、""" rails routes """で行き先を確認する。 %>
+
+<%# ここでもコントローラーで全件ツイートを取得し、そこからuserテーブルを見に行っている == N+1問題 == 先にallではなくincludes(:user)でuserテーブルも関連づけて取得する。 %>
+
+  <%# 10行目 %>
+  <%# ログイン中ユーザーのid == 投稿したユーザーのidが一致すれば、編集・削除ボタンの表示を許可 %>

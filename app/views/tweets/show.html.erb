@@ -1,5 +1,6 @@
 <div class ="contents row">
   <div class="content_post" style="background-image: url(<%= @tweet.image %>);">
+  <% if user_signed_in? && current_user.id == @tweet.user_id %>
     <div class="more">
       <span><i class="fas fa-arrow-down"></i></span>
       <ul class="more_list">
@@ -11,8 +12,11 @@
         </li>
       </ul>
     </div>
+  <% end %>
     <%= simple_format(@tweet.text) %>
-    <span class="name"><%= @tweet.name %>
+    <span class="name">
+      <a href ="/users/<%= @tweet.user.id %>">
+      <span>投稿者</span><%= @tweet.user.nickname%>
     </span>
   </div>
 </div>
