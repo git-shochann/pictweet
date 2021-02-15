@@ -1,5 +1,6 @@
 class Tweet < ApplicationRecord
   validates :text, presence: true
+  belongs_to :user
 end
 
 # コントローラークラスでクラスメソッドであるcreateメソッドがTweetモデルに対して使えるのは
