@@ -6,8 +6,7 @@ class TweetsController < ApplicationController
   # == new,create,edit,update,destoryは全てindex.html.erbにリダイレクトされる。
 
   def index
-    @tweets = Tweet.all
-    # => 全体ページのDBから全ての値を表示するためのアクション。
+    @tweets = Tweet.includes(:user).order("created_at DESC").page(params[:page]).per(5)
   end
 
   def new

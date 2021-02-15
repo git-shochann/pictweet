@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
     user = User.find(params[:id])
     @nickname = user.nickname
-    @tweets = user.tweets
+    @tweets = user.tweets.order("created_at DESC").page(params[:page]).per(3)
 
   end
 end
