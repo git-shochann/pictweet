@@ -2,7 +2,7 @@ class TweetsController < ApplicationController
 
   # before_action :set_tweets, only: [:edit, :show] 今回は実装なし
 
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_index, except: [:index, :show, :search]
   # == new,create,edit,update,destoryは全てindex.html.erbにリダイレクトされる。
 
   def index
@@ -49,6 +49,10 @@ class TweetsController < ApplicationController
     # => 削除完了のビューへ。
   end
 
+  def search
+    @tweets = Tweet.search(params[:keyword])
+    # ここのパラメーターはform_withで設定した:keywordというキー。
+  end
 
   private
   # 他のクラスからアクセス出来ないようにする。
