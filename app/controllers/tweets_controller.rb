@@ -34,8 +34,11 @@ class TweetsController < ApplicationController
   # データをDBに保存する為、privateメソッドでストロングパラメーターを設定する
 
   def show
-    @tweet = Tweet.find(params[:id])
-    # => 詳細ページのビューへ。
+    
+    @tweet = Tweet.find(params[:id]) # => 各詳細ページのビューへ。
+    @comment = Comment.new # form_withで使用する為のインスタンス。
+    @comments = @tweet.comments.includes(:user) # アソシエーションの正しいデータの取得。ビューのコメント一覧でuser情報を表示するため、ここでuserモデルを一緒に取得。あくまで全て指定はモデル。
+
   end
 
   # ここでのfind(params[:id])はindex.html.erbで作成したlink_toのパラメーター
